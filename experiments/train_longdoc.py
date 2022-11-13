@@ -116,7 +116,7 @@ else:
         net = PoolformerModel
     elif args.model == 'cosformer':
         net = CosformerModel
-    elif args.model == 's4':
+    elif args.model == 'S4':
         net = S4_Model
     elif args.model == 'luna':
         net = LunaModel

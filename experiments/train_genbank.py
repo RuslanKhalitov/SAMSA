@@ -54,9 +54,9 @@ problem_names = ['adding', 'genbank', 'longdoc']
 
 parser = argparse.ArgumentParser(description="experiments")
 parser.add_argument("--problem_class", type=str, default='genbank')
-parser.add_argument("--problem", type=str, default='Mus vs. Rattus')
-parser.add_argument("--model", type=str, default='nystromformer')
-parser.add_argument("--device_id", type=int, default=2)
+parser.add_argument("--problem", type=str, default='Danio vs. Cyprinus')
+parser.add_argument("--model", type=str, default='linformer')
+parser.add_argument("--device_id", type=int, default=1)
 parser.add_argument("--wandb", type=str, default='rusx')
 
 args = parser.parse_args()
@@ -155,7 +155,7 @@ else:
         net = PoolformerModel
     elif args.model == 'cosformer':
         net = CosformerModel
-    elif args.model == 's4':
+    elif args.model == 'S4':
         net = S4_Model
     elif args.model == 'luna':
         net = LunaModel

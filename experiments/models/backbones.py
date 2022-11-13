@@ -379,7 +379,7 @@ class S4_Model(nn.Module):
                 x = torch.mean(x, 1)
             elif self.pooling == 'cls':
                 x = x[:, 0, :]
-            x = self.final(x.view(x.size(0), -1))
+        x = self.final(x.view(x.size(0), -1))
         return x
 
 class LunaModel(nn.Module):

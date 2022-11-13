@@ -23,8 +23,8 @@ import yaml
 parser = argparse.ArgumentParser(description="experiments")
 parser.add_argument("--problem_class", type=str, default='adding')
 parser.add_argument("--problem", type=str, default='200')
-parser.add_argument("--model", type=str, default='reformer')
-parser.add_argument("--device_id", type=int, default=2)
+parser.add_argument("--model", type=str, default='S4')
+parser.add_argument("--device_id", type=int, default=0)
 parser.add_argument("--wandb", type=str, default='rusx')
 
 args = parser.parse_args()
@@ -41,13 +41,11 @@ config = cfg_yaml['models'][args.model]
 config['problem'] = 'adding'
 config['model'] = model
 print('model config', config)
-
-
-
 # sys.exit()
 
 torch.cuda.set_device(args.device_id)
 device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu'
+
 print('set up device:', device)
 
 # task variables
@@ -118,7 +116,7 @@ else:
         net = PoolformerModel
     elif args.model == 'cosformer':
         net = CosformerModel
-    elif args.model == 's4':
+    elif args.model == 'S4':
         net = S4_Model
     elif args.model == 'luna':
         net = LunaModel
