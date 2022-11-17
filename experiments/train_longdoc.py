@@ -6,7 +6,7 @@ from sklearn.utils.class_weight import compute_class_weight
 from sklearn.metrics import roc_auc_score, accuracy_score
 from SAMSA import SAMSA
 from models.backbones import TransformerModel, LinformerModel, ReformerModel, NystromformerModel, \
-    PoolformerModel, CosformerModel, S4_Model, LunaModel, LSTM, CONV
+    PoolformerModel, CosformerModel, S4_Model, LunaModel, LSTM, CONV, LongformerModel
 
 import argparse
 import sys

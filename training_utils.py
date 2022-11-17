@@ -32,7 +32,10 @@ def count_params(net):
 def init_weights(m):
     if type(m) == nn.Linear:
         torch.nn.init.xavier_uniform_(m.weight)
-        m.bias.data.fill_(0.01)
+        try:
+            m.bias.data.fill_(0.01)
+        except:
+            print('no bias in the model')
 
 
 def train_epoch(config, net, optimizer, loss, trainloader, device, scheduler=None):
@@ -73,11 +76,17 @@ def train_epoch_bins(config, net, optimizer, loss, trainloader, device, schedule
         if config['problem'] == 'adding':
             X = X.float().to(device)
             Y = Y.float().to(device)
-            output = net(X).squeeze()
+            if config['model'] in ['samsa', 'cosformer', 'luna']:
+                output = net(X, length).squeeze()
+            else:
+                output = net(X).squeeze()
         else:
             X = X.to(device)
             Y = Y.type(torch.LongTensor).to(device)
-            output = net(X)
+            if config['model'] in ['samsa', 'cosformer', 'luna']:
+                output = net(X, length)
+            else:
+                output = net(X)
         
         output = loss(output, Y)
         output.backward()
@@ -134,20 +143,29 @@ def eval_model_bins(config, net, valloader, metric, device) -> float:
         if config['problem'] == 'adding':
             X = X.float().to(device)
             Y = Y.float().to(device)
-            output = net(X, length).squeeze()
+            if config['model'] in ['samsa', 'cosformer', 'luna']:
+                output = net(X, length).squeeze()
+            else:
+                output = net(X).squeeze()
             predicted = output
         else:
             X = X.to(device)
             Y = Y.type(torch.LongTensor).to(device)  
-            output = net(X, length) 
+            if config['model'] in ['samsa', 'cosformer', 'luna']:
+                output = net(X, length)
+            else:
+                output = net(X)
             _, predicted = output.max(1)
             
         targets.extend(Y.detach().cpu().numpy().flatten())
         preds.extend(predicted.detach().cpu().numpy().flatten())
         bins.extend(bin)
 
-    total_metric = metric(preds, targets)
-    
+    try:
+        total_metric = metric(preds, targets)
+    except ValueError:
+        total_metric = 0.5
+           
     results = pd.DataFrame(data={'bins': bins, 'predictions': preds, 'labels': targets})
 
     # Calculate scores for each bin
@@ -162,9 +180,8 @@ def eval_model_bins(config, net, valloader, metric, device) -> float:
                 scores_dict[f'test_bin_2^{i}'] = 0.5
         wandb.log(scores_dict)
 
-    if config['use_wandb']:
-        bin_scores(results)
-        wandb.log({'test metric': total_metric})
+    bin_scores(results)
+    wandb.log({'test metric': total_metric})
 
     return total_metric
 

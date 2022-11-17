@@ -166,3 +166,5 @@ experiments/data/Other mammalian/
 experiments/data/Primate/
 experiments/data/Rodent/
 experiments/data/Other vertebrate/
+sweep_cifar10.yaml
+models/__pycache__/

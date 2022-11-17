@@ -7,14 +7,14 @@ adding:
     models:
       samsa:
         vocab_size: 1
-        embedding_size: 240
+        embedding_size: 150
         embedding_type: 'linear'
         positional_embedding: False
         hidden_size: 128
         mlp_dropout: 0
         layer_dropout: 0
-        learning_rate: 0.0005
-        batch_size: 4
+        learning_rate: 0.0001
+        batch_size: 10
       transformer:
         pooling: 'avg'
         vocab_size: 1
@@ -28,15 +28,15 @@ adding:
         vocab_size: 1
         n_layers: 4
         n_heads: 2
-        embedding_size: 128
-        learning_rate: 0.0001
+        embedding_size: 196
+        learning_rate: 0.0002
         batch_size: 4
       reformer:
         pooling: 'avg'
         vocab_size: 1
         n_layers: 2
         n_heads: 2
-        embedding_size: 64
+        embedding_size: 196
         learning_rate: 0.0003
         batch_size: 4
       cosformer:
@@ -76,7 +76,7 @@ adding:
         vocab_size: 1
         n_layers: 4
         n_heads: 1
-        embedding_size: 32
+        embedding_size: 128
         learning_rate: 0.0005
         batch_size: 4
       lstm:
@@ -755,7 +755,7 @@ genbank:
       linformer:
         pooling: 'avg'
         vocab_size: 20
-        n_layers: 1
+        n_layers: 3
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0001
@@ -771,7 +771,7 @@ genbank:
       cosformer:
         pooling: 'avg'
         vocab_size: 20
-        n_layers: 2
+        n_layers: 5
         n_heads: 2
         embedding_size: 96
         learning_rate: 0.0005
@@ -779,7 +779,7 @@ genbank:
       poolformer:
         pooling: 'avg'
         vocab_size: 20
-        n_layers: 2
+        n_layers: 4
         n_heads: 2
         embedding_size: 96
         learning_rate: 0.0005
@@ -854,13 +854,13 @@ longdoc:
         vocab_size: 4289
         n_layers: 2
         n_heads: 2
-        embedding_size: 128
+        embedding_size: 96
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       poolformer:
         pooling: 'avg'
         vocab_size: 4289
-        n_layers: 2
+        n_layers: 3
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
@@ -870,7 +870,7 @@ longdoc:
         vocab_size: 4289
         n_layers: 2
         n_heads: 2
-        embedding_size: 128
-        learning_rate: 0.0002
-        batch_size: 4
+        embedding_size: 96
+        learning_rate: 0.001
+        batch_size: 2
 

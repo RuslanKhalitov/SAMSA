@@ -11,7 +11,9 @@ from torch.utils.data import Dataset
 from datetime import datetime
 from tqdm import tqdm
 from sklearn.metrics import roc_auc_score
-
+import time
+from datetime import timedelta
+        
 import wandb
 
 def seed_everything(seed=1234):
@@ -107,9 +109,11 @@ def eval_model(config, net, valloader, metric, device) -> float:
 
     preds = []
     targets = []
-
+    timing =[]
     num_batches = len(valloader)
     for idx, (X, Y) in tqdm(enumerate(valloader), total=num_batches):
+
+        start_time = time.monotonic()
         if config['problem'] == 'adding':
             X = X.float().to(device)
             Y = Y.float().to(device)
@@ -120,12 +124,15 @@ def eval_model(config, net, valloader, metric, device) -> float:
             Y = Y.type(torch.LongTensor).to(device)  
             output = net(X) 
             _, predicted = output.max(1)
+            
+        end_time = time.monotonic()
+        timing.append(timedelta(seconds=end_time - start_time).total_seconds())
         
         targets.extend(Y.detach().cpu().numpy().flatten())
         preds.extend(predicted.detach().cpu().numpy().flatten())
 
     total_metric = metric(preds, targets)
-
+    wandb.log({'avg inference time': sum(timing) / num_batches})
     wandb.log({'test metric': total_metric})
 
     return total_metric
@@ -137,9 +144,11 @@ def eval_model_bins(config, net, valloader, metric, device) -> float:
     preds = []
     targets = []
     bins = []
-
+    timing = []
+    
     num_batches = len(valloader)
     for idx, (X, Y, length, bin) in tqdm(enumerate(valloader), total=num_batches):
+        start_time = time.monotonic()
         if config['problem'] == 'adding':
             X = X.float().to(device)
             Y = Y.float().to(device)
@@ -157,6 +166,9 @@ def eval_model_bins(config, net, valloader, metric, device) -> float:
                 output = net(X)
             _, predicted = output.max(1)
             
+        end_time = time.monotonic()
+        timing.append(timedelta(seconds=end_time - start_time).total_seconds())
+        
         targets.extend(Y.detach().cpu().numpy().flatten())
         preds.extend(predicted.detach().cpu().numpy().flatten())
         bins.extend(bin)
@@ -165,7 +177,11 @@ def eval_model_bins(config, net, valloader, metric, device) -> float:
         total_metric = metric(preds, targets)
     except ValueError:
         total_metric = 0.5
-           
+    
+    inference_time = sum(timing) / num_batches
+    print('inference time', inference_time)
+    wandb.log({'avg inference time': inference_time})
+    
     results = pd.DataFrame(data={'bins': bins, 'predictions': preds, 'labels': targets})
 
     # Calculate scores for each bin

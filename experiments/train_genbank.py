@@ -6,7 +6,7 @@ from sklearn.utils.class_weight import compute_class_weight
 from sklearn.metrics import roc_auc_score, accuracy_score
 from SAMSA import SAMSA
 from models.backbones import TransformerModel, LinformerModel, ReformerModel, NystromformerModel, \
-    PoolformerModel, CosformerModel, S4_Model, LunaModel, LSTM, CONV
+    PoolformerModel, CosformerModel, S4_Model, LunaModel, LSTM, CONV, LongformerModel
 
 import argparse
 import sys
@@ -54,7 +54,7 @@ problem_names = ['adding', 'genbank', 'longdoc']
 
 parser = argparse.ArgumentParser(description="experiments")
 parser.add_argument("--problem_class", type=str, default='genbank')
-parser.add_argument("--problem", type=str, default='Danio vs. Cyprinus')
+parser.add_argument("--problem", type=str, default='Sus vs. Bos')
 parser.add_argument("--model", type=str, default='linformer')
 parser.add_argument("--device_id", type=int, default=1)
 parser.add_argument("--wandb", type=str, default='rusx')

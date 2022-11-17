@@ -12,6 +12,9 @@ from .kernel_transformer import Kernel_transformer
 from .S4_model import S4Model
 from .conv_models import ConvPart
 from torch.nn.utils.rnn import pack_padded_sequence
+from .longformer import LongformerEncoder
+import jax.numpy as jnp
+
 
 class TransformerModel(nn.Module):
     def __init__(self,
@@ -139,8 +142,9 @@ class ReformerModel(nn.Module):
             lsh_dropout=0.1,
             causal=True
         )
+        bucket_size = 64 * 2
         print('nvec', n_vec)
-        self.n_vec = math.ceil(n_vec / dim / 2) * dim * 2
+        self.n_vec = math.ceil(n_vec / bucket_size) * bucket_size
         print('nvec', self.n_vec)
         self.pooling = pooling
         self.final = nn.Linear(dim, n_class)
@@ -492,3 +496,46 @@ class CONV(nn.Module):
 
         y = self.final(y_class)
         return y
+    
+
+class LongformerModel(nn.Module):
+    def __init__(self,
+     vocab_size,
+     dim,
+     heads,
+     depth,
+     n_vec,
+     n_class,
+     problem,
+     pooling,
+     device
+     ):    
+        super(LongformerModel, self).__init__()
+        self.device = device
+        self.n_vec = n_vec
+        self.encoder = nn.Embedding(vocab_size,  dim, padding_idx=0)
+        
+        self.longformer_encoder = LongformerEncoder(
+            vocab_size=vocab_size,
+            sliding_window_size=512,
+            emb_dim=n_vec,
+            num_heads=8,
+            dtype=jnp.float32,
+            num_layers=depth,
+            qkv_dim=dim,
+            mlp_dim=dim*heads,
+            max_len=n_vec,
+            train=True,
+            dropout_rate=0.1,
+            attention_dropout_rate=0.1,
+            learn_pos_emb=False,
+            classifier=True,
+            classifier_pool='MEAN',
+            num_classes=n_class
+        )
+
+    def forward(self, x):
+        x = self.encoder(x)
+        x = self.longformer_encoder(x)
+        return x
+    

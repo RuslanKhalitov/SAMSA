@@ -108,6 +108,15 @@ def pad_collate(batch):
     (xx, yy, lengths, bins) = zip(*batch)
     xx_pad = pad_sequence(xx, batch_first=True, padding_value=0)
     yy = torch.tensor(yy)
+    return xx_pad, yy, list(lengths), list(bins)
+
+def pad_collate_image(batch):
+    """
+    PAD sequences in a batch
+    """
+    (xx, yy, lengths, bins) = zip(*batch)
+    xx_pad = pad_sequence(xx, batch_first=True, padding_value=0)
+    yy = torch.tensor(yy)
     return xx_pad, yy
 
 # Refer to https://github.com/mlpen/Nystromformer/blob/main/LRA/code/dataset.py
