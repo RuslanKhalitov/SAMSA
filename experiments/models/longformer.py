@@ -2,7 +2,7 @@
 # https://github.com/google-research/long-range-arena/tree/main/lra_benchmarks/models/longformer
 
 """Longformer modules."""
-from flax import nn
+from flax.depreciated import nn
 import jax.numpy as jnp
 from . import common_layers
 from . import longformer_attention

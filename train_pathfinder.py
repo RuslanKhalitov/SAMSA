@@ -55,12 +55,10 @@ device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu
 print('set up device:', device)
 
 # task variables
-data_train = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/pathfinder_train.pt')
-# data_train = data_train.to(torch.int32) if config['embedding_type'] == 'sparse' else data_train.to(torch.float)
-labels_train = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/pathfinder_labels_train.pt').to(torch.int32)
+data_train = torch.load('experiments/data/LRA/pathfinder_train.pt')
+labels_train = torch.load('experiments/data/LRA/pathfinder_labels_train.pt').to(torch.int32)
 
-data_test = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/pathfinder_test.pt')
-# data_test = data_test.to(torch.int32) if config['embedding_type'] == 'sparse' else data_test.to(torch.float)
+data_test = torch.load('experiments/data/LRA/pathfinder_test.pt')
 labels_test = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/pathfinder_labels_test.pt').to(torch.int32)
 
 if config['embedding_type'] == 'linear':

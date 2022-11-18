@@ -65,3 +65,26 @@ Expected output:
 - data/longdoc_train.pkl
 - data/longdoc_test.pkl
 Max_size: ~200Mb each
+
+
+## Long Range Arena
+Additionally, we added scripts to get the results on the LRA benchmark reported in the Supplemental Document.
+
+To prepare data sets:
+
+1. cd SAMSA/experiments/data/LRA 
+2. bash prepare_data.sh
+
+This will create and store the LRA datasets.
+
+Expected output:
+\SAMSA\experiments\data\LRA\
+    - cifar10_{train, test, valid}.pt
+    - cifar10_labels_{train, test, valid}.pt
+    - pathfinder_{train, test, valid}.pt
+    - pathfinder_labels_{train, test, valid}.pt
+
+    - listops_{train, test, valid}.pkl
+    - text_4000{train, test, valid}.pickle
+    - retrieval_4000_{train, test, valid}.pickle
+

@@ -52,8 +52,8 @@ device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu
 print('set up device:', device)
 
 # task variables
-data_train = pd.read_pickle('/lhome/ruslank/Nystromformer/LRA/datasets/listops_train.pkl')
-data_test = pd.read_pickle('/lhome/ruslank/Nystromformer/LRA/datasets/listops_test.pkl')
+data_train = pd.read_pickle('experiments/data/LRA/listops_train.pkl')
+data_test = pd.read_pickle('experiments/data/LRA/listops_test.pkl')
 
 
 naming_log = "Listops"
@@ -94,7 +94,6 @@ optimizer = optim.AdamW(
 )
 
 scheduler = LinearLR(optimizer, start_factor=config['warmup_scale'], total_iters=config['warmup_epochs'])
-scheduler = None
 
 trainset = DatasetCreator(
     df=data_train,

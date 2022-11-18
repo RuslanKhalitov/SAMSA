@@ -185,3 +185,83 @@ def eval_model_bins(config, net, valloader, metric, device) -> float:
 
     return total_metric
 
+
+def train_epoch_texts(config, net, optimizer, loss, trainloader, device, log_every=50, scheduler=None):
+    net.train()
+    running_loss = 0.0
+    n_items_processed = 0
+    num_batches = len(trainloader)
+    for idx, one_input in tqdm(enumerate(trainloader), total=num_batches):
+        if config['problem'] == 'retrieval_4000':
+            X0 = one_input['input_ids_0']
+            X1 = one_input['input_ids_1']
+            Y = one_input['label']
+
+            X0 = X0.to(device)
+            X1 = X1.to(device)
+            Y = Y.type(torch.LongTensor).to(device)
+
+            output = net(X0, X1)
+        else:
+            X = one_input['input_ids_0']
+            Y = one_input['label']
+            X = X.to(device)
+            Y = Y.type(torch.LongTensor).to(device)
+            output = net(X)
+
+        output = loss(output, Y)
+        output.backward()
+        optimizer.step()
+        optimizer.zero_grad()
+        if scheduler:
+            scheduler.step()
+
+        running_loss += output.item()
+        n_items_processed += Y.size(0)
+
+        if (idx + 1) % log_every == 0:
+            print(f'Avg loss after {idx + 1} batches: {running_loss / n_items_processed}')
+            # print(f'Current loss on a batch {idx + 1}: {output.item() / len(length)}')
+
+    total_loss = running_loss / num_batches
+    print(f'Training loss after epoch: {total_loss}')
+    wandb.log({'train loss': total_loss})
+
+
+def eval_model_texts(config, net, valloader, metric, device) -> float:
+    net.eval()
+
+    preds = []
+    targets = []
+    bins = []
+
+    num_batches = len(valloader)
+    for idx, one_input in tqdm(enumerate(valloader), total=num_batches):
+        if config['problem'] == 'retrieval_4000':
+            X0 = one_input['input_ids_0']
+            X1 = one_input['input_ids_1']
+            Y = one_input['label']
+
+            X0 = X0.to(device)
+            X1 = X1.to(device)
+            Y = Y.type(torch.LongTensor).to(device)
+
+            output = net(X0, X1)
+        else:
+            X = one_input['input_ids_0']
+            Y = one_input['label']
+            X = X.to(device)
+            Y = Y.type(torch.LongTensor).to(device)
+            output = net(X)
+
+        _, predicted = output.max(1)
+        targets.extend(Y.detach().cpu().numpy().flatten())
+        preds.extend(predicted.detach().cpu().numpy().flatten())
+
+    total_metric = metric(preds, targets)
+    
+    results = pd.DataFrame(data={'predictions': preds, 'labels': targets})
+
+    wandb.log({'test metric': total_metric})
+
+    return total_metric

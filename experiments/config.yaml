@@ -22,7 +22,7 @@ adding:
         n_heads: 4
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 10
       linformer:
         pooling: 'avg'
         vocab_size: 1
@@ -30,7 +30,7 @@ adding:
         n_heads: 2
         embedding_size: 196
         learning_rate: 0.0002
-        batch_size: 4
+        batch_size: 10
       reformer:
         pooling: 'avg'
         vocab_size: 1
@@ -38,7 +38,7 @@ adding:
         n_heads: 2
         embedding_size: 196
         learning_rate: 0.0003
-        batch_size: 4
+        batch_size: 10
       cosformer:
         pooling: 'avg'
         vocab_size: 1
@@ -46,7 +46,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 10
       poolformer:
         pooling: 'avg'
         vocab_size: 1
@@ -54,7 +54,7 @@ adding:
         n_heads: 2
         embedding_size: 96
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 10
       nystromformer:
         pooling: 'avg'
         vocab_size: 1
@@ -62,7 +62,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0002
-        batch_size: 4
+        batch_size: 10
       S4:
         pooling: 'avg'
         vocab_size: 1
@@ -70,7 +70,7 @@ adding:
         n_heads: 4
         embedding_size: 96
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 10
       luna:
         pooling: 'avg'
         vocab_size: 1
@@ -78,7 +78,7 @@ adding:
         n_heads: 1
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 10
       lstm:
         pooling: 'avg'
         vocab_size: 1
@@ -86,7 +86,7 @@ adding:
         n_heads: 0
         embedding_size: 128
         learning_rate: 0.001
-        batch_size: 4
+        batch_size: 10
       cnn:
         pooling: 'avg'
         vocab_size: 1
@@ -94,7 +94,7 @@ adding:
         n_heads: 1
         embedding_size: 128
         learning_rate: 0.001
-        batch_size: 4
+        batch_size: 10
       tcn:
         pooling: 'avg'
         vocab_size: 1
@@ -102,7 +102,7 @@ adding:
         n_heads: 0
         embedding_size: 128
         learning_rate: 0.001
-        batch_size: 4
+        batch_size: 10
   '1000': 
     training:
       loss: mse
@@ -126,7 +126,7 @@ adding:
         n_heads: 3
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       linformer:
         pooling: 'avg'
         vocab_size: 1
@@ -134,7 +134,7 @@ adding:
         n_heads: 2
         embedding_size: 96
         learning_rate: 0.0002
-        batch_size: 4
+        batch_size: 2
       reformer:
         pooling: 'avg'
         vocab_size: 1
@@ -142,7 +142,7 @@ adding:
         n_heads: 2
         embedding_size: 64
         learning_rate: 0.0003
-        batch_size: 4
+        batch_size: 2
       cosformer:
         pooling: 'avg'
         vocab_size: 1
@@ -150,7 +150,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       poolformer:
         pooling: 'avg'
         vocab_size: 1
@@ -158,7 +158,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       nystromformer:
         pooling: 'avg'
         vocab_size: 1
@@ -166,7 +166,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0002
-        batch_size: 4
+        batch_size: 2
       S4:
         pooling: 'avg'
         vocab_size: 1
@@ -182,7 +182,7 @@ adding:
         n_heads: 1
         embedding_size: 32
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       lstm:
         pooling: 'avg'
         vocab_size: 1
@@ -190,7 +190,7 @@ adding:
         n_heads: 0
         embedding_size: 128
         learning_rate: 0.001
-        batch_size: 4
+        batch_size: 2
       cnn:
         pooling: 'avg'
         vocab_size: 1
@@ -215,14 +215,14 @@ adding:
     models:
       samsa:
         vocab_size: 1
-        embedding_size: 360
+        embedding_size: 240
         embedding_type: 'linear'
         positional_embedding: False
-        hidden_size: 128
+        hidden_size: 240
         mlp_dropout: 0
         layer_dropout: 0.
-        learning_rate: 0.0001
-        batch_size: 1
+        learning_rate: 0.0002
+        batch_size: 2
       transformer:
         pooling: 'avg'
         vocab_size: 1
@@ -230,7 +230,7 @@ adding:
         n_heads: 4
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       linformer:
         pooling: 'avg'
         vocab_size: 1
@@ -238,7 +238,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0001
-        batch_size: 4
+        batch_size: 2
       reformer:
         pooling: 'avg'
         vocab_size: 1
@@ -246,7 +246,7 @@ adding:
         n_heads: 2
         embedding_size: 64
         learning_rate: 0.0003
-        batch_size: 4
+        batch_size: 2
       cosformer:
         pooling: 'avg'
         vocab_size: 1
@@ -254,7 +254,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       poolformer:
         pooling: 'avg'
         vocab_size: 1
@@ -262,7 +262,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       nystromformer:
         pooling: 'avg'
         vocab_size: 1
@@ -270,7 +270,7 @@ adding:
         n_heads: 2
         embedding_size: 128
         learning_rate: 0.0002
-        batch_size: 4
+        batch_size: 2
       S4:
         pooling: 'avg'
         vocab_size: 1
@@ -278,7 +278,7 @@ adding:
         n_heads: 1
         embedding_size: 32
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       luna:
         pooling: 'avg'
         vocab_size: 1
@@ -286,7 +286,7 @@ adding:
         n_heads: 1
         embedding_size: 32
         learning_rate: 0.0005
-        batch_size: 4
+        batch_size: 2
       lstm:
         pooling: 'avg'
         vocab_size: 1
@@ -294,7 +294,7 @@ adding:
         n_heads: 0
         embedding_size: 128
         learning_rate: 0.001
-        batch_size: 4
+        batch_size: 2
       cnn:
         pooling: 'avg'
         vocab_size: 1
@@ -528,10 +528,10 @@ genbank:
     models:
       samsa:
         vocab_size: 20
-        embedding_size: 360
+        embedding_size: 240
         embedding_type: 'sparse'
         positional_embedding: False
-        hidden_size: 128
+        hidden_size: 240
         mlp_dropout: 0
         layer_dropout: 0
         learning_rate: 0.0001
@@ -573,7 +573,7 @@ genbank:
         vocab_size: 20
         n_layers: 6
         n_heads: 4
-        embedding_size: 128
+        embedding_size: 96
         learning_rate: 0.0005
         batch_size: 4
       nystromformer:
@@ -860,10 +860,10 @@ longdoc:
       poolformer:
         pooling: 'avg'
         vocab_size: 4289
-        n_layers: 3
+        n_layers: 2
         n_heads: 2
-        embedding_size: 128
-        learning_rate: 0.0005
+        embedding_size: 96
+        learning_rate: 0.002
         batch_size: 4
       nystromformer:
         pooling: 'avg'
@@ -871,6 +871,22 @@ longdoc:
         n_layers: 2
         n_heads: 2
         embedding_size: 96
+        learning_rate: 0.001
+        batch_size: 2
+      reformer:
+        pooling: 'avg'
+        vocab_size: 4289
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 96
+        learning_rate: 0.001
+        batch_size: 1
+      luna:
+        pooling: 'avg'
+        vocab_size: 4289
+        n_layers: 2
+        n_heads: 2
+        embedding_size: 128
         learning_rate: 0.001
         batch_size: 2
 

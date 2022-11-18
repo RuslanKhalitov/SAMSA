@@ -54,16 +54,14 @@ device = 'cuda:{}'.format(args.device_id) if torch.cuda.is_available() else 'cpu
 print('set up device:', device)
 
 # task variables
-data_train = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/cifar10_train.pt')
-# data_train = data_train.to(torch.int32) if config['embedding_type'] == 'sparse' else data_train.to(torch.float)
-labels_train = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/cifar10_labels_train.pt').to(torch.int32)
+data_train = torch.load('experiments/data/LRA/cifar10_train.pt')
+labels_train = torch.load('experiments/data/LRA/cifar10_labels_train.pt').to(torch.int32)
 
-data_test = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/cifar10_test.pt')
-# data_test = data_test.to(torch.int32) if config['embedding_type'] == 'sparse' else data_test.to(torch.float)
-labels_test = torch.load('/lhome/ruslank/sparsefactorisation/mixers/lra/cifar10_labels_test.pt').to(torch.int32)
+data_test = torch.load('experiments/data/LRA/cifar10_test.pt')
+labels_test = torch.load('experiments/data/LRA/cifar10_labels_test.pt').to(torch.int32)
 
 if config['embedding_type'] == 'linear':
-    print('linear map')
+    print('linear mapping')
     mean = 0.5
     std = 0.5
     data_train = data_train.to(torch.float).div(255.).sub(mean).div(std)
