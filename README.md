@@ -3,11 +3,11 @@ Official implementation of SAMSA: Shift-And-Mix Self-Attention
 
 ## Standalone SAMSA implementation
 
-To apply ChordMixer architecture on your datasets, please use both SAMSA.py, dataloader_utils.py, training_utils.py to ensure the correct batch construction.
+To apply ChordMixer architecture on your datasets, please use both `SAMSA.py`, `dataloader_utils.py`, `training_utils.py` to ensure the correct batch construction.
 
 ## Datasets
 
-Follow the instructions from /experiments/README.md to get the datasets from this paper.
+Follow the instructions from `/experiments/README.md` to get the datasets from this paper.
 All the datasets should be stored in the experiments/data folder. 
 
 ## WANDB
@@ -40,3 +40,7 @@ python3 train_text.py --model 'samsa' --device_id 0 --wandb %yourusername%
 python3 train_retrieval.py --model 'samsa' --device_id 0 --wandb %yourusername%
 
 ```
+
+## Requirements 
+Please install packages from `requirements.txt`
+This project has `python==3.10` and `torch==1.13.0`
